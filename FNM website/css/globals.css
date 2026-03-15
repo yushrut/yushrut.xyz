@@ -1,0 +1,319 @@
+/* css/globals.css — FourNine Theme (Pure CSS Fixed) */
+
+/* ============================================================================
+   YOUR BRAND COLORS & THEME
+============================================================================ */
+:root {
+  --brand-cyan: #00c8e0;
+  --brand-blue: #0058e0;
+  --brand-dark: #232526;
+  --surface: #e4ecee;
+  --border-subtle: rgba(0, 200, 224, 0.1);
+}
+
+/* Tailwind custom colors */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+    font-size: 18px;
+  }
+}
+
+/* ============================================================================
+   SICK GRADIENTS & TEXTURES
+============================================================================ */
+@layer utilities {
+  /* Mesh gradient hero */
+  .bg-mesh-hero {
+    position: relative;
+    background: transparent;
+    overflow: hidden;
+  }
+
+  .bg-mesh-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.6)
+    );
+
+    z-index: 0;
+  }
+
+  .bg-mesh-hero video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleY(-1);
+    z-index: -1;
+  }
+
+  .bg-mesh-hero > .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-title {
+    text-shadow:
+      0 10px 40px rgba(0, 0, 0, 0.25),
+      0 0 20px rgba(0, 200, 224, 0.2);
+  }
+
+  /* CTA gradient */
+  .bg-gradient-brand {
+    background: linear-gradient(to right, var(--brand-cyan), var(--brand-blue));
+  }
+
+  /* Subtle section gradient */
+  .bg-mesh-subtle {
+    background-image:
+      radial-gradient(circle at 10% 20%, var(--brand-cyan) 0%, transparent 70%),
+      radial-gradient(circle at 90% 80%, var(--brand-blue) 0%, transparent 70%);
+  }
+}
+
+/* ============================================================================
+   GRAIN TEXTURE OVERLAY (5% opacity)
+============================================================================ */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.05;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='.4'/%3E%3C/svg%3E");
+  animation: grain-shift 20s linear infinite;
+}
+
+@keyframes grain-shift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, 5%);
+  }
+  20% {
+    transform: translate(-10%, 15%);
+  }
+  30% {
+    transform: translate(5%, -5%);
+  }
+  40% {
+    transform: translate(-5%, 15%);
+  }
+  50% {
+    transform: translate(-10%, 5%);
+  }
+  60% {
+    transform: translate(5%, 0%);
+  }
+  70% {
+    transform: translate(-5%, 10%);
+  }
+  80% {
+    transform: translate(-10%, -5%);
+  }
+  90% {
+    transform: translate(5%, 5%);
+  }
+}
+
+/* ============================================================================
+   TYPOGRAPHY (Premium Agency Feel)
+============================================================================ */
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-weight: 900;
+    letter-spacing: -0.025em;
+  }
+  h1 {
+    font-size: 3rem;
+  }
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 4.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    h1 {
+      font-size: 6rem;
+    }
+  }
+
+  h2 {
+    font-size: 2.25rem;
+  }
+  @media (min-width: 768px) {
+    h2 {
+      font-size: 3rem;
+    }
+  }
+
+  h3 {
+    font-size: 1.875rem;
+  }
+  @media (min-width: 768px) {
+    h3 {
+      font-size: 2.25rem;
+    }
+  }
+
+  p {
+    line-height: 1.625;
+    color: rgba(35, 37, 38, 0.8);
+    max-width: 48rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ============================================================================
+   ANIMATIONS (Slow, Premium Pulse)
+============================================================================ */
+@keyframes pulse-premium {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.95;
+  }
+}
+
+.animate-pulse-premium {
+  animation: pulse-premium 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-slower {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+}
+
+.animate-pulse-slower {
+  animation: pulse-slower 20s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ============================================================================
+   GLASSMORPHISM COMPONENTS
+============================================================================ */
+@layer components {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-radius: 1.5rem;
+    padding: 2rem;
+  }
+  @media (min-width: 768px) {
+    .glass-card {
+      padding: 3rem;
+    }
+  }
+
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-subtle);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+}
+
+/* ============================================================================
+   RESPONSIVE UTILITIES
+============================================================================ */
+@layer utilities {
+  .container {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .section-padding {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+  @media (min-width: 768px) {
+    .section-padding {
+      padding-top: 8rem;
+      padding-bottom: 8rem;
+    }
+  }
+}
+
+.ticker {
+  width: 100%;
+  overflow: hidden;
+}
+
+.ticker-track {
+  display: flex;
+  gap: 60px;
+  white-space: nowrap;
+  animation: scroll 30s linear infinite;
+  width: max-content;
+}
+
+.ticker-track span {
+  font-size: 20px;
+  font-weight: 600;
+  color: #00c8e0;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.logo-slider {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
